@@ -29,6 +29,18 @@
 
 <div id="result"></div>
 
+<form>
+    <label for="daysInput">Enter the number of days:</label>
+    <input type="text" id="daysInput" value="7">
+    <br>
+
+    <label for="priceInput">Enter price:</label>
+    <input type="text" id="priceInput" value="1000">
+    <br>
+
+    <button onclick="updateCruise()">Update the cruise</button>
+</form>
+
 <script>
     var my_cruise = {};
 
@@ -43,7 +55,16 @@
             "Breakfast: " + my_cruise.breakfast + ", " +
             "Pool Pass: " + my_cruise.pool;
     }
+    function updateCruise() {
+        var days = document.getElementById("daysInput").value;
+        var price = document.getElementById("priceInput").value;
+        my_cruise.days = days;
+        my_cruise.price = price;
+        var resultElement = document.getElementById("result");
+        resultElement.innerHTML = "Updated cruise properties: " +
+            "Number of days: " + my_cruise.days + ", " +
+            "Price: " + my_cruise.price;
+    }
 </script>
-
 </body>
 </html> 
