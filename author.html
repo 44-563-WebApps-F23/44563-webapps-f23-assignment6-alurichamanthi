@@ -13,37 +13,108 @@
 <h1>Author Guessing </h1>
    
 
-    <form>
 
-        <label for="hiddenName">hidden author name:</label>
-        <input type="password" id="hiddenName" value="Dickens">
-        <br>       
-        <label for="guessAuthor">Guess the author:</label>
-        <input type="text" id="guessAuthor">
-        <br>       
-        <input type="button" value="Check the guess" onclick="checkAuthor()">
-    </form>   
+<form>
 
-    <p>Score: <span id="score">0 / 0</span></p>   
+    <div class="form-group">
 
-    <script>    
-        let good = 0;
-        let oops = 0;
-        function checkAuthor() {  
-            const hiddenAuthor = document.getElementById('hiddenName').value;
-            const guessAuthor = document.getElementById('guessAuthor').value;
-            if (hiddenAuthor === guessAuthor) {
-                good++;
-                alert('You got it right!');
-            } else {
-                oops++;
-                alert('Sorry, try again.');
-            }
-            const scoreElement = document.getElementById('score');
-            scoreElement.textContent = `${good} / ${good + oops}`;
+        <label for="FindAuthor">Hidden author name</label>
+
+        <input type="password" class="form-control" id="FindAuthor" value="Dickens">
+
+    </div>   
+
+    <div class="form-group">
+
+        <label for="Yourluck">Guess Author Name</label>
+
+        <input type="text" class="form-control" id="Yourluck">
+
+    </div>   
+
+    <button type="button" class="btn btn-primary" onclick="checkAuthor()">Check the Guess</button>
+
+</form>
+
+ 
+
+<div class="count">
+
+    <p>Good: <span id="successcount">0</span>, Oops: <span id="badcount">0</span></p>
+
+    <div id="incorrectGuesses" style="display: none;">
+
+        <h5>Incorrect Guesses:</h5>
+
+        <ul id="incorrectList"></ul>
+
+    </div>
+
+
+<script>
+var good = 0;
+
+var oops = 0;
+
+var incorrectGuesses = [];
+
+ 
+
+function checkAuthor() {
+
+    var FindAuthor = document.getElementById("FindAuthor").value;
+
+    var Yourluck = document.getElementById("Yourluck").value;
+
+ 
+
+    if (FindAuthor === Yourluck) {
+
+        good++;
+
+        alert("Correct");
+
+    } else {
+
+        oops++;
+
+        incorrectGuesses.push(Yourluck);
+
+        document.getElementById("incorrectList").innerHTML = incorrectGuesses.map(guess => `<li>${guess}</li>`).join('');
+
+        if (oops === 7) {
+
+            alert("Sorry, ran out of guesses.");
+
+            document.getElementById("checkButton").setAttribute("onclick", "outOfGuesses()");
+
+        } else {
+
+            alert("Sorry");
+
         }
 
-    </script>
+    }
+
+    document.getElementById("successcount").textContent = good;
+
+    document.getElementById("badcount").textContent = oops;
+
+    if (oops >= 7) {
+
+        document.getElementById("incorrectGuesses").style.display = "block";
+
+    }
+
+}
+
+function outOfGuesses() {
+
+    alert("Sorry, ran out of guesses.");
+
+}
+
+</script>
 
 
 
@@ -78,6 +149,3 @@
 </body>
 
 </html>
-
-</body>
-</html> 
